@@ -22,21 +22,21 @@ class PurchaseConfirmationNotificationHandler implements MessageHandlerInterface
 
     public function __invoke(PurchaseConfirmationNotification $purchaseConfirmationNotification)
     {
-        //create pdf
+        //1*******create pdf******
         $mpdf = new Mpdf();
-        $content ="<h1>Cont for order{$purchaseConfirmationNotification->getOrder()->getId()}</h1>";
+        $content ="<h1>Cont for order{$purchaseConfirmationNotification->getOrderId()}</h1>";
         $content.="<p>1258$</p>";
 
         $mpdf->writeHtml($content);
         $contractNotPdf = $mpdf->output('','S');
 
-            //email the buyer
+        //2********email the buyer****
 
         $email = (new Email())
 
             ->from('abdelaazizeelhathoute.2018@gmail.com')
-            ->to($purchaseConfirmationNotification->getOrder()->getBuyer()->getEmail())
-            ->subject('contact'.$purchaseConfirmationNotification->getOrder()->getId())
+            ->to('azize@gmail.com')
+            ->subject('contact'.$purchaseConfirmationNotification->getOrderId())
             ->text('text text')
             ->attach($contractNotPdf,'contract-note.pdf');
               //send email

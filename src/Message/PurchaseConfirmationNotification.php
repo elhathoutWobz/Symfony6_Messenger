@@ -4,13 +4,13 @@ namespace App\Message;
 
 class PurchaseConfirmationNotification
 {
-    public function __construct(private  object $order)
+    public function __construct(private  string|int $orderId)
     {
 
     }
 
-    public function getOrder():object
+    public function getOrderId():string|int
     {
-        return $this->order;
+        return $this->orderId;
     }
 }
