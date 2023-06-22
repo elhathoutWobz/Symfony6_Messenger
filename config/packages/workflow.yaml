@@ -1,0 +1,25 @@
+framework:
+    workflows:
+        blog_publishing:
+            type: 'state_machine'
+            marking_store:
+                property: 'currentState'
+                type: 'method'
+            supports:
+                - 'App\Entity\Post'
+            initial_marking: 'draft'
+            places:
+                - 'draft'
+                - 'reviewed'
+                - 'published'
+                - 'rejected'
+            transitions:
+                to_review:
+                    from: 'draft'
+                    to: 'reviewed'
+                publish:
+                    from: 'reviewed'
+                    to: 'published'
+                reject:
+                    from: ['reviewed','draft']
+                    to: 'rejected'
